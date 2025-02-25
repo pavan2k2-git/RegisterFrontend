@@ -1,0 +1,131 @@
+<h2>Register Here!</h2>
+
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+
+    <div formGroupName="personalInfo">
+
+        <div>
+            <label>UserName:</label>
+            <input type="text" name="username" formControlName="username"><br>
+
+            <div *ngIf= "registerForm.get('username')?.touched && registerForm.get('username')?.errors?.['required']" class="error-message">
+            Username is required. 
+            </div>
+
+            <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.errors?.['minlength']" class="error-message">
+            Minimum 3 characters required for username.
+            </div>
+        </div>
+
+        <div>
+            <label>Email:</label>
+            <input type="text" name="email" formControlName="email"><br>
+
+            <div *ngIf="registerForm.get('email')?.errors?.['email'] && registerForm.get('email')?.errors?.['required']">
+                Email is Required.
+            </div>
+
+            <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['pattern']" class="error-message">
+                Email Format is incorrect.
+            </div>
+        </div>
+
+        <div>
+            <label>Password:</label>
+            <input type="password" name="password" formControlName="password"><br>
+
+            <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors?.['required']" class="error-message">
+                Password is required.
+            </div>
+
+            <div *ngIf="registerForm.get('password')?.errors?.['minlength']" class="error-message">
+                Minimum 5 characters required for password.
+            </div>
+        </div>
+
+        <div>
+            <label>Phonenumber:</label>
+            <input type="text" name="phonenumber" formControlName="phonenumber"><br>
+
+            <div *ngIf="registerForm.get('phonenumber')?.touched && registerForm.get('phonenumber')?.errors?.['required']" class="error-message">
+                Phonenumber is required.
+            </div>
+        </div>
+    </div>
+    <h3>Delivery Address</h3>
+    <div formGroupName="deliveryAddress">
+        <div>
+            <label>Street:</label>
+            <input type="text" name="street" formControlName="street">
+        </div>
+        <div>
+            <label>City:</label>
+            <input type="text" name="city" formControlName="city">
+        </div>
+        <div>
+            <label>State:</label>
+            <input type="text" name="state" formControlName="state">
+        </div>
+        <div>
+            <label>Zip Code:</label>
+            <input type="text" name="zip code" formControlName="zipcode"><br>
+        </div>
+    </div>
+
+    <div>
+        <br><label><b>Billing Address same as Delivery Address</b></label>
+        <input type="checkbox" formControlName="sameAsDelivery">
+    </div>
+
+    <h3>Billing Address</h3>
+    <div formGroupName="billingAddress">
+        <div>
+            <label>Street:</label>
+            <input type="text" name="street" formControlName="street">
+        </div>
+        <div>
+            <label>City:</label>
+            <input type="text" name="city" formControlName="city">
+        </div>
+        <div>
+            <label>State:</label>
+            <input type="text" name="state" formControlName="state">
+        </div>
+        <div>
+            <label>Zip Code:</label>
+            <input type="text" name="zip code" formControlName="zipcode">
+        </div>
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    <input type="button" value="GetUsers" (click)="getUsers()">
+    
+    <div *ngIf="users.length > 0">
+        <h2>User List</h2>
+        <table border="1">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.personalInfo.username }}</td>
+              <td>{{ user.personalInfo.email }}</td>
+              <td>{{ user.personalInfo.phonenumber }}</td>
+              <td>{{ user.deliveryAddress.street }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <p *ngIf="users.length == 0">No users found</p>
+</form>
+
+
+
+
+
