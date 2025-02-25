@@ -27,16 +27,6 @@ export class RegistrationComponent implements OnInit {
     
     this.initForm();
     this.copy();
-
-    this.service.getUsers().subscribe({
-      next:(response) => {
-        //console.log(response);
-        this.users = response;
-      },
-      error:(error)=>{
-        console.log("error",error);
-      }
-    })
   }
 
   initForm(){
